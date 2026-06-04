@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เองๆเรามีอะไรจะถามอะะ... 👉👈</title>
+    <!-- นำเข้าฟอนต์จาก Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Mitr:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Mitr', 'Kanit', sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #121212; /* พื้นหลังสีดำ */
+            overflow: hidden;
+            transition: background-color 0.5s;
+        }
+
+        .card {
+            background-color: #1e1e1e; /* การ์ดสีดำเข้ม */
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2); /* เงาสีชมพูบาง ๆ */
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            border: 2px solid #ff4d6d; /* ขอบสีชมพู */
+            z-index: 10;
+            transition: all 0.3s;
+        }
+
+        h1 {
+            color: #ffffff; /* ตัวหนังสือสีขาว */
+            font-size: 2.2rem;
+            margin-bottom: 35px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        p {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 300;
+        }
+
+        .highlight {
+            color: #ff4d6d; /* เน้นคำสีชมพู */
+            font-weight: 500;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            min-height: 60px;
+        }
+
+        button {
+            padding: 12px 35px;
+            font-size: 1.2rem;
+            font-weight: 400;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d; /* ปุ่มตกลงสีชมพู */
+            color: #ffffff; 
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            z-index: 999; 
+        }
+
+        #yesBtn:hover {
+            background-color: #ff758f;
+            transform: scale(1.05);
+        }
+
+        #noBtn {
+            background-color: #ffffff; /* ปุ่มปฏิเสธสีขาว */
+            color: #121212; 
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        #noBtn:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* สำหรับปรับแต่งรูปภาพหน้าสุดท้าย */
+        .success-img {
+            width: 200px;          /* ปรับความกว้างของรูปภาพตรงนี้ */
+            height: 200px;         /* ปรับความสูงของรูปภาพตรงนี้ */
+            object-fit: cover;     /* ป้องกันไม่ให้รูปเบี้ยว */
+            border-radius: 50px;   /* ทำมุมโค้งมน (ถ้าอยากให้กลมดิ๊กปรับเป็น 50%) */
+            border: 3px solid #ff4d6d; /* ใส่ขอบสีชมพูรอบรูป */
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="mainCard">
+        <h1 id="questionText">เองๆๆ...เป็น <span class="highlight">แฟน</span> กันไหม? 🥺🎀</h1>
+        <div class="btn-group">
+            <button id="yesBtn" onclick="selectYes()">ตกลง</button>
+            <button id="noBtn" onclick="selectNo()">ไม่เป็น</button>
+        </div>
+    </div>
+
+    <script>
+        let scale = 1;
+        let noClickCount = 0;
+        
+        const texts = [
+            "คิดดีๆนะะะะะะ...🥺",
+            "ขออีกทีนะ 🙏",
+            "ปุ่มตกลงรออยู่นะเพ่่ 💖",
+            "กดผิดป๋าววววววว ",
+            "อะแฮ่มๆๆ",
+            "เต็มจอแล้วนะะะะะ!!!!"
+        ];
+
+        function selectNo() {
+            noClickCount++;
+            
+            scale += 0.4; 
+            const yesBtn = document.getElementById('yesBtn');
+            yesBtn.style.transform = `scale(${scale})`;
+            
+            const questionText = document.getElementById('questionText');
+            if (noClickCount <= texts.length) {
+                questionText.innerHTML = `<span class="highlight">${texts[noClickCount - 1]}</span>`;
+            } else {
+                questionText.innerHTML = `<span class="highlight">ไม่มีให้เลือกแล้วจ่ะ 😗😗</span>`;
+            }
+
+            if (scale >= 3.2) {
+                document.getElementById('noBtn').style.display = 'none';
+                yesBtn.style.position = 'fixed';
+                yesBtn.style.top = '0';
+                yesBtn.style.left = '0';
+                yesBtn.style.width = '100vw';
+                yesBtn.style.height = '100vh';
+                yesBtn.style.borderRadius = '0';
+                yesBtn.style.transform = 'none'; 
+                yesBtn.style.display = 'flex';
+                yesBtn.style.justifyContent = 'center';
+                yesBtn.style.alignItems = 'center';
+                yesBtn.style.fontSize = '3.5rem'; 
+            }
+        }
+
+        function selectYes() {
+            const card = document.getElementById('mainCard');
+            document.body.style.backgroundColor = '#1a0d10'; 
+            
+            // เปลี่ยนจากหัวใจเป็นแท็กรูปภาพ คุณสามารถแก้ชื่อไฟล์รูปภาพตรง src="your-photo.jpg" ได้เลยครับ
+            card.innerHTML = `
+                <img src="c:\\Users\\ASUS\\Downloads\\713063098_982118981211889_8811252641411173339_n (1).jpg" alt="Our Photo" class="success-img">
+                <h1 style="color: #ff4d6d; margin-bottom: 15px; font-weight: 500;">หึ้ยย ตกลงแล้วนะ 🥰</h1>
+                <p style="color: #ffffff; font-size: 1.2rem; line-height: 1.6;">สัญญาว่าจะดูแลอย่างดีเลย รักนะคับบสุดสวย ขอบคุณนะค้าบบ 💐💐</p>
+            `;
+            
+            const yesBtn = document.getElementById('yesBtn');
+            if(yesBtn) yesBtn.remove();
+        }
+    </script>
+
+</body>
+</html>
